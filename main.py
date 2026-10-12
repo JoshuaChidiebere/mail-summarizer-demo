@@ -1,8 +1,6 @@
-import time
 import re
 from datetime import date, timedelta
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-from threading import Thread
+
 
 import ollama
 import requests
@@ -10,13 +8,6 @@ from bs4 import BeautifulSoup
 from imap_tools import MailBox, AND
 
 from config import Config
-
-
-# ========================= PLATFORM HEALTH CHECK =========================
-def run_health_server():
-    """Keeps Render/HF Spaces happy by listening for basic web requests."""
-    server = HTTPServer(("0.0.0.0", Config.PORT), SimpleHTTPRequestHandler)
-    server.serve_forever()
 
 
 # ========================= EMAIL HANDLING =========================
