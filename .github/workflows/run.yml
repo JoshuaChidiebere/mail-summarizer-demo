@@ -1,0 +1,50 @@
+name: Mail Summarizer
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OLLAMA_MODELS: /home/runner/ollama-models
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Cache Ollama model
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/ollama-models
+          key: ollama-llama3.2
+
+      - name: Start Ollama and pull model
+        run: |
+          sudo systemctl stop ollama || true
+          ollama serve &
+          sleep 10
+          ollama pull llama3.2
+
+      - name: Run script
+        env:
+          MAIL_EMAIL: ${{ secrets.MAIL_EMAIL }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          IMAP_SERVER: imap.gmail.com
+          DAYS_BACK: "1"
+          OLLAMA_MODEL: llama3.2
+        run: python main.py
