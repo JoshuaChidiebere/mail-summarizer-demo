@@ -47,7 +47,7 @@ jobs:
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
-          IMAP_SERVER: imap.eslobose.com
+          IMAP_SERVER: mail.eslobose.com
           DAYS_BACK: "1"
           OLLAMA_MODEL: llama3.2
           SENDER_FILTER: "Haliburton"
