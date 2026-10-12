@@ -21,12 +21,10 @@ class Config:
     ]
 
     SENDER_FILTER = os.environ.get("SENDER_FILTER", "").strip()
-    DAYS_BACK = int(os.environ.get("DAYS_BACK", "1"))
+    DAYS_BACK = int(os.environ.get("DAYS_BACK", "0"))
 
     OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2")
 
-    POLL_INTERVAL_SECONDS = int(os.environ.get("POLL_INTERVAL_SECONDS", "3600"))
-    PORT = int(os.environ.get("PORT", "7860"))
 
     @classmethod
     def validate(cls):
