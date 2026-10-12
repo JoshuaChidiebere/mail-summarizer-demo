@@ -50,5 +50,5 @@ jobs:
           IMAP_SERVER: mail.esloboseng.com
           DAYS_BACK: "1"
           OLLAMA_MODEL: llama3.2
-          SENDER_FILTER: "Haliburton"
+          SENDER_FILTER: "Halliburton"
         run: python main.py
