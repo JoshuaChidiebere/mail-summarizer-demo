@@ -29,8 +29,9 @@ def summarize_email(body: str, model: str = None) -> str:
     model = model or Config.OLLAMA_MODEL
 
     if not body or len(body) < 30:
-        return "Email body is too short or empty."
-
+        return "Email body is too short or empty."  
+        
+    body = body[:3000]
     prompt = f"""You are an expert assistant. Summarize the following email clearly and concisely.
 
 Focus on:
@@ -45,7 +46,7 @@ EMAIL:
 SUMMARY:"""
 
     try:
-        response = ollama.chat(model=model, messages=[{"role": "user", "content": prompt}])
+        response = ollama.Client(timeout=120).chat(model=model, messages=[{"role": "user", "content": prompt}])
         return response["message"]["content"].strip()
     except Exception as e:
         return f"[Summarization failed: {str(e)}]"
@@ -103,6 +104,7 @@ def process_emails():
 
             messages = mailbox.fetch(
                 criteria=AND(**criteria_kwargs),
+                limit=8,
                 mark_seen=False,  # we mark manually below, only after a successful send
                 bulk=True,
                 reverse=True,
