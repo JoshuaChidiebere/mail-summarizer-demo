@@ -52,7 +52,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
           IMAP_SERVER: mail.esloboseng.com
-          DAYS_BACK: ""
+          DAYS_BACK: "2"
           OLLAMA_MODEL: llama3.2
-          SENDER_FILTER: ""
+          SENDER_FILTER: "halliburton"
         run: python main.py
