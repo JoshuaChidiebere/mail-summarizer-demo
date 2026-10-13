@@ -5,6 +5,10 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+concurrency:
+  group: mail-summarizer
+  cancel-in-progress: false
+
 jobs:
   run:
     runs-on: ubuntu-latest
